@@ -17,10 +17,10 @@ const getProductsData = async function () {
 };
 getProductsData();
 
-// INSERT THE PRODUCTS TO THE HTML
+// INSERT THE PRODUCTS TO HTML
 const showProducts = function (data) {
   const html = `
-    <a href="./product.html?id=42">
+    <a href="./product.html?id=${data._id}">
     <article>
         <img src="${data.imageUrl}" alt="${data.altTxt}">
         <h3 class="productName">${data.name}</h3>
