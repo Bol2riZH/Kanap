@@ -1,24 +1,26 @@
 'use strict';
 
-// INIT CONST
+// INIT QUERY SELECTOR
 const productsContainer = document.querySelector('.items');
 
 // GET DATA FROM THE API
-const getProductsData = async function () {
+async function getProductsData() {
   try {
     const result = await fetch(`http://localhost:3000/api/products`);
     if (!result.ok) throw new Error('Problem with API');
 
     const data = await result.json();
     data.forEach(element => showProducts(element));
+
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
-};
+}
 getProductsData();
 
 // INSERT THE PRODUCTS TO HTML
-const showProducts = function (data) {
+function showProducts(data) {
   const html = `
     <a href="./product.html?id=${data._id}">
     <article>
@@ -29,4 +31,4 @@ const showProducts = function (data) {
     </a>
     `;
   productsContainer.insertAdjacentHTML('beforeend', html);
-};
+}
