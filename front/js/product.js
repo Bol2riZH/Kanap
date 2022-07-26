@@ -48,13 +48,20 @@ async function showProduct(id) {
 showProduct(idProduct);
 
 // ADD TO CART
-let shoppingCart = [];
+class Cart {
+  constructor(id, color, qte) {
+    this.id = id;
+    this.color = color;
+    this.qte = qte;
+  }
+}
+
+let shoppingCart;
+let carts = [];
+
 btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
-  console.log(idProduct);
-  console.log(colors.value);
-  console.log(quantity.value);
-  shoppingCart = [idProduct, colors.value, quantity.value];
-  console.log(shoppingCart);
-  localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+  shoppingCart = new Cart(idProduct, colors.value, quantity.value);
+  carts.push(shoppingCart);
+  localStorage.setItem('shoppingCart', JSON.stringify(carts));
 });
