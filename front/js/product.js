@@ -57,11 +57,12 @@ class Cart {
 }
 
 let shoppingCart;
-let carts = [];
+// let carts = [];
 
 btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
   shoppingCart = new Cart(idProduct, colors.value, quantity.value);
   carts.push(shoppingCart);
+  console.log(carts);
   localStorage.setItem('shoppingCart', JSON.stringify(carts));
 });
