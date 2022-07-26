@@ -49,6 +49,7 @@ showProduct(idProduct);
 
 // ADD TO CART
 class Cart {
+  carts = [];
   constructor(id, color, qte) {
     this.id = id;
     this.color = color;
@@ -56,13 +57,18 @@ class Cart {
   }
 }
 
+// INIT VARIABLES FOR LOCAL STORAGE
 let shoppingCart;
-// let carts = [];
+let carts = [];
 
 btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
+
   shoppingCart = new Cart(idProduct, colors.value, quantity.value);
+  // carts is empty when come back to product page > put back the local storage in
+  if (carts == 0) {
+    carts = JSON.parse(localStorage.getItem('shoppingCart'));
+  }
   carts.push(shoppingCart);
-  console.log(carts);
   localStorage.setItem('shoppingCart', JSON.stringify(carts));
 });
