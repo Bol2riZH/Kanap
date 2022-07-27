@@ -10,26 +10,41 @@ const itemQuantity = document.querySelector(
   '.cart__item__content__settings__quantity'
 );
 const itemDelete = document.querySelector('.deleteItem');
-
 const totalItemsQuantity = document.querySelector('#totalQuantity');
 const totalItemsPrice = document.querySelector('#totalPrice');
+
+// INIT ARRAY FOR TOTAL PRICE
+let prices = [];
+let totalPrice;
 
 // GET PRODUCTS FROM LOCAL STORAGE
 const cartProducts = JSON.parse(localStorage.getItem('shoppingCart'));
 console.log(cartProducts);
+console.log(prices);
+
+function showCartPrice(prices) {
+  const totalPrice = prices.reduce((a, b) => a + b);
+  totalItemsPrice.insertAdjacentHTML('beforeend', totalPrice);
+}
+
+// SHOW RECAP PRODUCT
+cartProducts.forEach(element => {
+  showCartProducts(element.id, element.color, element.qte);
+});
 
 // SHOW PRODUCTS RECAP
 async function showCartProducts(id, color, qte) {
   try {
     const result = await fetch(`http://localhost:3000/api/products`);
     if (!result.ok) throw new Error('Problem with API');
-
     const data = await result.json();
-    console.log(data);
+
     data.forEach(product => {
       if (product._id === id) {
+        const productPriceNumber = Math.floor(product.price);
+        prices.push(productPriceNumber);
         const html = `
-            <article class="cart__item" data-id="${product._id}" data-color="${color}">
+            <article class="cart__item" data-id="${id}" data-color="${color}">
             <div class="cart__item__img">
               <img src="${product.imageUrl}" alt="${product.altText}">
             </div>
@@ -54,14 +69,19 @@ async function showCartProducts(id, color, qte) {
         itemsCartContainer.insertAdjacentHTML('beforeend', html);
       }
     });
+    // TODO create a PROMISE
+    totalPrice = prices.reduce((a, b) => a + b);
+    totalItemsPrice.insertAdjacentHTML('beforeend', totalPrice);
   } catch (error) {
     console.log(error);
   }
-}
+} 
 
-cartProducts.forEach(element => {
-  showCartProducts(element.id, element.color, element.qte);
-  console.log(element.id);
-  console.log(element.color);
-  console.log(element.qte);
-});
+// REMOVE A PRODUCT
+if (itemDelete) {
+  itemDelete.addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem('shoppingCart');
+    console.log('whoww');
+  });
+}

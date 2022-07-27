@@ -49,7 +49,6 @@ showProduct(idProduct);
 
 // ADD TO CART
 class Cart {
-  carts = [];
   constructor(id, color, qte) {
     this.id = id;
     this.color = color;
@@ -61,13 +60,23 @@ class Cart {
 let shoppingCart;
 let carts = [];
 
+// ADD PRODUCT IN CART
 btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
+  // convert string into number
+  const quantityNumber = Math.floor(quantity.value);
+  shoppingCart = new Cart(idProduct, colors.value, quantityNumber);
 
-  shoppingCart = new Cart(idProduct, colors.value, quantity.value);
+  // as an array
+  // shoppingCart = [idProduct, colors.value, quantity.value];
+
   // carts is empty when come back to product page > put back the local storage in
+  // TODO refacroring carts.? 0 ...
   if (carts == 0) {
     carts = JSON.parse(localStorage.getItem('shoppingCart'));
+    if (carts == null) {
+      carts = [];
+    }
   }
   carts.push(shoppingCart);
   localStorage.setItem('shoppingCart', JSON.stringify(carts));
