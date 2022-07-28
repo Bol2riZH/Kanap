@@ -9,7 +9,7 @@ const itemDescription = document.querySelector(
 const itemQuantity = document.querySelector(
   '.cart__item__content__settings__quantity'
 );
-const itemDelete = document.querySelector('.deleteItem');
+// const deleteItem = document.querySelectorAll('.deleteItem');
 const totalItemsQuantity = document.querySelector('#totalQuantity');
 const totalItemsPrice = document.querySelector('#totalPrice');
 
@@ -17,7 +17,7 @@ const totalItemsPrice = document.querySelector('#totalPrice');
 let prices = [];
 
 // GET PRODUCTS FROM LOCAL STORAGE
-const cartProducts = JSON.parse(localStorage.getItem('shoppingCart'));
+let cartProducts = JSON.parse(localStorage.getItem('shoppingCart'));
 
 ////////////////////////////////////////////////
 // USE ASYNC FUNCTION TO
@@ -88,11 +88,24 @@ function showCartPrice(prices) {
   totalItemsPrice.insertAdjacentHTML('beforeend', totalPrice);
 }
 
-// REMOVE A PRODUCT
-if (itemDelete) {
-  itemDelete.addEventListener('click', function (e) {
-    e.preventDefault();
-    localStorage.removeItem('shoppingCart');
-    console.log('whoww');
-  });
-}
+// REMOVE PRODUCT FROM CART
+// Wait for the DOM (cart products) to load
+window.addEventListener('load', () => {
+  const deleteItem = document.querySelectorAll('.deleteItem');
+  deleteItem.forEach(item =>
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Get data-id and color-id from product
+      const dataId = item.closest('.cart__item').getAttribute('data-id');
+      const dataColor = item.closest('.cart__item').getAttribute('data-color');
+
+      // Filter by id and color to remove product
+      const removeProduct = cartProducts.filter(
+        element => element.id !== dataId && element.color !== dataColor
+      );
+      localStorage.setItem('shoppingCart', JSON.stringify(removeProduct));
+      location.reload();
+    })
+  );
+});
