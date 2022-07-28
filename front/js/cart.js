@@ -18,8 +18,6 @@ let prices = [];
 
 // GET PRODUCTS FROM LOCAL STORAGE
 const cartProducts = JSON.parse(localStorage.getItem('shoppingCart'));
-console.log(cartProducts);
-console.log(prices);
 
 ////////////////////////////////////////////////
 // USE ASYNC FUNCTION TO
@@ -28,22 +26,24 @@ console.log(prices);
 (async function () {
   try {
     await showCartProducts(cartProducts);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
   showCartPrice(prices);
 })();
 ///////////////////////////////////////////////
 
 // SHOW PRODUCTS RECAP
-async function showCartProducts(list) {
+async function showCartProducts(cartProducts) {
   try {
     const result = await fetch(`http://localhost:3000/api/products`);
     if (!result.ok) throw new Error('Problem with API');
-    const data = await result.json();
+    const allProduct = await result.json();
 
     // products in cart
-    list.forEach(element => {
+    cartProducts.forEach(element => {
       // look over the API to match products and products in cart
-      element = data.forEach(product => {
+      element = allProduct.forEach(product => {
         if (product._id === element.id) {
           const productPriceNumber = Math.floor(product.price);
 

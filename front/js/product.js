@@ -66,16 +66,27 @@ btnShoppingCart.addEventListener('click', function (e) {
   // convert string into number
   const quantityNumber = Math.floor(quantity.value);
   shoppingCart = new Cart(idProduct, colors.value, quantityNumber);
-
-  // as an array
-  // shoppingCart = [idProduct, colors.value, quantity.value];
+  console.log(shoppingCart);
 
   // carts is empty when come back to product page > put back the local storage in
   // TODO refacroring carts.? 0 ...
   if (carts == 0) {
     carts = JSON.parse(localStorage.getItem('shoppingCart'));
+    console.log(carts);
     if (carts == null) {
       carts = [];
+    }
+  }
+  // look for same id and color to sort the recap
+  if (carts != 0 && carts != null) {
+    for (let i = 0; i < carts.length; i++) {
+      if (
+        shoppingCart.id === carts[i].id &&
+        shoppingCart.color === carts[i].color
+      ) {
+        shoppingCart.qte += carts[i].qte;
+        carts.splice(i, 1);
+      }
     }
   }
   carts.push(shoppingCart);
