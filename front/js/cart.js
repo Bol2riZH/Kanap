@@ -9,7 +9,6 @@ const itemDescription = document.querySelector(
 const itemQuantity = document.querySelector(
   '.cart__item__content__settings__quantity'
 );
-// const deleteItem = document.querySelectorAll('.deleteItem');
 const totalItemsQuantity = document.querySelector('#totalQuantity');
 const totalItemsPrice = document.querySelector('#totalPrice');
 
@@ -48,7 +47,7 @@ async function showCartProducts(cartProducts) {
           const productPriceNumber = Math.floor(product.price);
 
           // array of products price
-          prices.push(productPriceNumber);
+          prices.push(productPriceNumber * element.qte);
 
           const html = `
           <article class="cart__item" data-id="${element.id}" data-color="${element.color}">
@@ -89,10 +88,8 @@ function showCartPrice(prices) {
 }
 
 // REMOVE PRODUCT FROM CART
-// Wait for the DOM (cart products) to load
-window.addEventListener('load', () => {
-  const deleteItem = document.querySelectorAll('.deleteItem');
-  deleteItem.forEach(item =>
+function removeProduct(deleteSelector) {
+  deleteSelector.forEach(item =>
     item.addEventListener('click', function (e) {
       e.preventDefault();
 
@@ -108,4 +105,35 @@ window.addEventListener('load', () => {
       location.reload();
     })
   );
+}
+
+// MODIFY QUANTITY OF PRODUCT IN THE CART
+function modifyQuantity(quantitySelector) {
+  quantitySelector.forEach(item => {
+    item.addEventListener('change', function (e) {
+      e.preventDefault();
+
+      // Get data-id and qte from product
+      const dataId = item.closest('.cart__item').getAttribute('data-id');
+      const qte = item.closest('.itemQuantity').value;
+
+      // Filter by id to modify quantity
+      cartProducts.forEach(element => {
+        if (element.id === dataId) {
+          element.qte = qte;
+        }
+      });
+      localStorage.setItem('shoppingCart', JSON.stringify(cartProducts));
+      location.reload();
+    });
+  });
+}
+
+// WAIT FOR THE DOM TO LOAD FROM THE API
+window.addEventListener('load', () => {
+  const deleteItem = document.querySelectorAll('.deleteItem');
+  const itemQuantity = document.querySelectorAll('.itemQuantity');
+
+  removeProduct(deleteItem);
+  modifyQuantity(itemQuantity);
 });
