@@ -255,7 +255,8 @@ function makeOrder(order) {
       console.log(contact);
       const listOfProducts = createProductsList(cartProducts);
       console.log(listOfProducts);
-      window.location.href = 'http://127.0.0.1:8080/front/html/confirmation.html';
+      
+      window.location.href = 'http://127.0.0.1:8080/front/html/confirmation.html'
     } else {
       alert('formulaire incorrect');
     }

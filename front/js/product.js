@@ -65,14 +65,13 @@ btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
   // convert string into number
   const quantityNumber = Math.floor(quantity.value);
-  shoppingCart = new Cart(idProduct, colors.value, quantityNumber);
-  console.log(shoppingCart);
-
-  // carts is empty when come back to product page > put back the local storage in
-  // TODO refacroring carts.? 0 ...
+  if(colors.value && quantityNumber !== 0) {
+    shoppingCart = new Cart(idProduct, colors.value, quantityNumber);
+    
+    // carts is empty when come back to product page > put back the local storage in
+    // TODO refacroring carts.? 0 ...
   if (carts == 0) {
     carts = JSON.parse(localStorage.getItem('shoppingCart'));
-    console.log(carts);
     if (carts == null) {
       carts = [];
     }
@@ -83,12 +82,16 @@ btnShoppingCart.addEventListener('click', function (e) {
       if (
         shoppingCart.id === carts[i].id &&
         shoppingCart.color === carts[i].color
-      ) {
-        shoppingCart.qte += carts[i].qte;
-        carts.splice(i, 1);
+        ) {
+          shoppingCart.qte += carts[i].qte;
+          carts.splice(i, 1);
+        }
       }
     }
+    carts.push(shoppingCart);
+    localStorage.setItem('shoppingCart', JSON.stringify(carts));
+    alert('Article ajouter au panier')
+  } else {
+    alert('Veuillez sélectionner un produit et une couleur')
   }
-  carts.push(shoppingCart);
-  localStorage.setItem('shoppingCart', JSON.stringify(carts));
 });
