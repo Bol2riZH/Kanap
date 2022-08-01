@@ -220,9 +220,7 @@ function createProductsList(listOfProducts) {
   const products = [];
   if (listOfProducts != 0) {
     listOfProducts.forEach(element => {
-      // for (let i = 0; i < element.qte; i++) {
       products.push(element.id);
-      // }
     });
   } else {
     alert('Votre panier est vide');
@@ -238,6 +236,8 @@ async function sendPost(contact, products) {
       body: JSON.stringify({ contact, products }),
       headers: { 'Content-Type': 'application/json' },
     });
+    if (!response.ok) throw new Error('Problem with API');
+
     const data = await response.json();
     const orderId = await data.orderId;
     return orderId;
@@ -250,7 +250,8 @@ async function sendPost(contact, products) {
 function makeOrder(submitOrder) {
   submitOrder.addEventListener('click', function (e) {
     e.preventDefault();
-
+    if (cartProducts === 0) {
+    }
     // Check if no error in the form
     if (
       errorFirstName.textContent === '' &&
@@ -275,17 +276,19 @@ function makeOrder(submitOrder) {
 
       // Create a products array
       const products = createProductsList(cartProducts);
-
       // Get Order Id
       const orderId = sendPost(contact, products);
 
-      orderId.then(value => {
-        window.location.href = encodeURI(
-          'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
-        );
-      });
+      // Send to confirmation page
+      if (cartProducts.length !== 0) {
+        orderId.then(value => {
+          window.location.href = encodeURI(
+            'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
+          );
+        });
+      } else 'Votre panier est vide';
     } else {
-      alert('formulaire incorrect');
+      alert('Formulaire de contact incorrect');
     }
   });
 }

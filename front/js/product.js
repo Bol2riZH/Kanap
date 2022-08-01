@@ -65,23 +65,22 @@ btnShoppingCart.addEventListener('click', function (e) {
   e.preventDefault();
   // convert string into number
   const quantityNumber = Math.floor(quantity.value);
-  if(colors.value && quantityNumber !== 0) {
+  if (colors.value && quantityNumber !== 0) {
     shoppingCart = new Cart(idProduct, colors.value, quantityNumber);
-    
+
     // carts is empty when come back to product page > put back the local storage in
-    // TODO refacroring carts.? 0 ...
-  if (carts == 0) {
-    carts = JSON.parse(localStorage.getItem('shoppingCart'));
-    if (carts == null) {
-      carts = [];
+    if (carts == 0) {
+      carts = JSON.parse(localStorage.getItem('shoppingCart'));
+      if (carts == null) {
+        carts = [];
+      }
     }
-  }
-  // look for same id and color to sort the recap
-  if (carts != 0 && carts != null) {
-    for (let i = 0; i < carts.length; i++) {
-      if (
-        shoppingCart.id === carts[i].id &&
-        shoppingCart.color === carts[i].color
+    // look for same id and color to sort the recap
+    if (carts != 0 && carts != null) {
+      for (let i = 0; i < carts.length; i++) {
+        if (
+          shoppingCart.id === carts[i].id &&
+          shoppingCart.color === carts[i].color
         ) {
           shoppingCart.qte += carts[i].qte;
           carts.splice(i, 1);
@@ -90,8 +89,8 @@ btnShoppingCart.addEventListener('click', function (e) {
     }
     carts.push(shoppingCart);
     localStorage.setItem('shoppingCart', JSON.stringify(carts));
-    alert('Article ajouter au panier')
+    alert('Article ajouté au panier');
   } else {
-    alert('Veuillez sélectionner un produit et une couleur')
+    alert('Veuillez sélectionner un nombre et une couleur ajouter un produit au panier');
   }
 });
