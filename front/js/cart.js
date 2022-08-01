@@ -152,7 +152,7 @@ window.addEventListener('load', () => {
   modifyQuantity(itemQuantity);
 });
 
-// VALIDATION FORM
+// VALIDATION FORM WITH REGEX
 function validationForm() {
   firstName.addEventListener('change', function (e) {
     e.preventDefault();
@@ -230,10 +230,28 @@ function createProductsList(listOfProducts) {
   return products;
 }
 
+// SEND A POST REQUEST TO API (CONTACT AND PRODUCTS)
+async function sendPost(contact, products) {
+  try {
+    const response = await fetch('http://localhost:3000/api/products/order', {
+      method: 'POST',
+      body: JSON.stringify({ contact, products }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    const orderId = await data.orderId;
+    return orderId;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // ORDER
 function makeOrder(submitOrder) {
   submitOrder.addEventListener('click', function (e) {
     e.preventDefault();
+
+    // Check if no error in the form
     if (
       errorFirstName.textContent === '' &&
       errorLastName.textContent === '' &&
@@ -246,6 +264,7 @@ function makeOrder(submitOrder) {
       city.value &&
       email.value
     ) {
+      // Create contact obj
       const contact = createContact(
         firstName.value,
         lastName.value,
@@ -253,38 +272,21 @@ function makeOrder(submitOrder) {
         city.value,
         email.value
       );
+
+      // Create a products array
       const products = createProductsList(cartProducts);
 
+      // Get Order Id
       const orderId = sendPost(contact, products);
-      console.log(orderId);
-      // window.location.href = 'http://127.0.0.1:8080/front/html/confirmation.html'
+
+      orderId.then(value => {
+        window.location.href = encodeURI(
+          'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
+        );
+      });
     } else {
       alert('formulaire incorrect');
     }
   });
 }
 makeOrder(submitOrder);
-
-function sendPost(contact, products) {
-  sendHttpRequest('POST', 'http://localhost:3000/api/products/order', {
-    contact,
-    products,
-  })
-    .then(responsePost => {
-      console.log(responsePost);
-      console.log(responsePost.orderId);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
-const sendHttpRequest = (method, url, data1, data2) => {
-  return fetch(url, {
-    method: method,
-    body: JSON.stringify(data1, data2),
-    headers: { 'Content-Type': 'application/json' },
-  }).then(response => {
-    return response.json();
-  });
-};
