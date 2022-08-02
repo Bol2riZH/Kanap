@@ -246,18 +246,16 @@ async function sendPost(contact, products) {
   }
 }
 
-// ORDER
+// SUBMIT ORDER
 function makeOrder(submitOrder) {
-  submitOrder.addEventListener('click', function (e) {
+  submitOrder.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (cartProducts === 0) {
-    }
     // Check if no error in the form
     if (
       errorFirstName.textContent === '' &&
       errorLastName.textContent === '' &&
       errorAddress.textContent === '' &&
-      errorCity.textContent === '' &&
+      errorCity.textContent === '' && 
       errorEmail.textContent === '' &&
       firstName.value &&
       lastName.value &&
