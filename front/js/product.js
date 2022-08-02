@@ -91,6 +91,6 @@ btnShoppingCart.addEventListener('click', function (e) {
     localStorage.setItem('shoppingCart', JSON.stringify(carts));
     alert('Article ajouté au panier');
   } else {
-    alert('Veuillez sélectionner un nombre et une couleur ajouter un produit au panier');
+    alert('Veuillez sélectionner un nombre et une couleur pour ajouter un produit au panier');
   }
 });
