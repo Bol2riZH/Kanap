@@ -276,11 +276,9 @@ function makeOrder(submitOrder) {
       const products = createProductsList(cartProducts);
       // Get Order Id
       const orderId = sendPost(contact, products);
-      console.log(orderId);
       // Send to confirmation page
       if (cartProducts.length !== 0) {
         orderId.then(value => {
-          console.log(value);
           window.location.href = encodeURI(
             'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
           );
