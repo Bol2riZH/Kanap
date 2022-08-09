@@ -248,14 +248,14 @@ async function sendPost(contact, products) {
 
 // SUBMIT ORDER
 function makeOrder(submitOrder) {
-  submitOrder.addEventListener('submit', function (e) {
+  submitOrder.addEventListener('click', function (e) {
     e.preventDefault();
     // Check if no error in the form
     if (
       errorFirstName.textContent === '' &&
       errorLastName.textContent === '' &&
       errorAddress.textContent === '' &&
-      errorCity.textContent === '' && 
+      errorCity.textContent === '' &&
       errorEmail.textContent === '' &&
       firstName.value &&
       lastName.value &&
@@ -276,10 +276,11 @@ function makeOrder(submitOrder) {
       const products = createProductsList(cartProducts);
       // Get Order Id
       const orderId = sendPost(contact, products);
-
+      console.log(orderId);
       // Send to confirmation page
       if (cartProducts.length !== 0) {
         orderId.then(value => {
+          console.log(value);
           window.location.href = encodeURI(
             'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
           );
