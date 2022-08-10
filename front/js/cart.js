@@ -280,7 +280,7 @@ function makeOrder(submitOrder) {
       if (cartProducts.length !== 0) {
         orderId.then(value => {
           window.location.href = encodeURI(
-            'http://127.0.0.1:8080/front/html/confirmation.html' + '?' + value
+            'http://localhost:3000/front/html/confirmation.html' + '?' + value
           );
         });
       } else 'Votre panier est vide';

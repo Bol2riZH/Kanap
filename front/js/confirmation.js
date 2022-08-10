@@ -8,3 +8,6 @@ const orderId = url.get('search').slice(1);
 
 // SHOW ORDER ID
 orderIdContainer.insertAdjacentHTML('beforeend', orderId);
+
+// CLEAR THE LOCAL STORAGE
+localStorage.clear();
