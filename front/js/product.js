@@ -16,7 +16,7 @@ const idProduct = url.get('search').slice(4);
 // SHOW THE PRODUCT BY ID
 async function showProduct(id) {
   try {
-    const result = await fetch(`http://localhost:3000/api/products/${id}`);
+    const result = await fetch(`https://kanap-back.vercel.app/api/products/${id}`);
     if (!result.ok) throw new Error('Problem with API');
     const data = await result.json();
     const itemImage = `<img src="${data.imageUrl}" alt="${data.altText}">`;

@@ -6,7 +6,7 @@ const productsContainer = document.querySelector('.items');
 // GET DATA FROM THE API
 async function getProductsData() {
   try {
-    const result = await fetch(`http://localhost:3000/api/products`);
+    const result = await fetch(`https://kanap-back.vercel.app/api/products`);
     if (!result.ok) throw new Error('Problem with API');
     const data = await result.json();
     data.forEach(element => showProducts(element));

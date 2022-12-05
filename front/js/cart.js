@@ -49,7 +49,7 @@ let cartProducts = JSON.parse(localStorage.getItem('shoppingCart'));
 // SHOW PRODUCTS RECAP
 async function showCartProducts(cartProducts) {
   try {
-    const result = await fetch(`http://localhost:3000/api/products`);
+    const result = await fetch(`https://kanap-back.vercel.app/api/products`);
     if (!result.ok) throw new Error('Problem with API');
     const allProduct = await result.json();
 
@@ -231,7 +231,7 @@ function createProductsList(listOfProducts) {
 // SEND A POST REQUEST TO API (CONTACT AND PRODUCTS)
 async function sendPost(contact, products) {
   try {
-    const response = await fetch('http://localhost:3000/api/products/order', {
+    const response = await fetch('https://kanap-back.vercel.app/api/products/order', {
       method: 'POST',
       body: JSON.stringify({ contact, products }),
       headers: { 'Content-Type': 'application/json' },
