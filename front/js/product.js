@@ -12,62 +12,29 @@ const btnShoppingCart = document.querySelector('#addToCart');
 // GET THE ID OF PRODUCT
 const url = new URLSearchParams(window.location);
 const idProduct = url.get('search').slice(4);
-// const idProduct = new URL(window.location).searchParams.get("id");
 
 // SHOW THE PRODUCT BY ID
-// async function showProduct(id) {
-//   try {
-//     const result = await fetch(`https://kanap-back.vercel.app/api/products/${id}`);
-//     if (!result.ok) throw new Error('Problem with API');
-//     const data = await result.json();
-//     const itemImage = `<img src="${data.imageUrl}" alt="${data.altText}">`;
-//     itemImgContainer.insertAdjacentHTML('beforeend', itemImage);
-//
-//     const title = `${data.name}`;
-//     titleContainer.insertAdjacentHTML('beforeend', title);
-//
-//     const price = `${data.price}`;
-//     priceContainer.insertAdjacentHTML('beforeend', price);
-//
-//     const description = `${data.description}`;
-//     descriptionContainer.insertAdjacentHTML('beforeend', description);
-//
-//     let optionColor;
-//     data.colors.forEach(color => {
-//       optionColor = `<option value="${color}">${color}</option>`;
-//       colors.insertAdjacentHTML('beforeend', optionColor);
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function showProduct(id) {
   try {
-    const result = await fetch(`https://kanap-back.vercel.app/api/products`);
+    const result = await fetch(`https://kanap-back.vercel.app/api/products/${id}`);
     if (!result.ok) throw new Error('Problem with API');
-
     const data = await result.json();
-    data.forEach(product => {
-      if (product._id === id) {
-        const itemImage = `<img src="${product.imageUrl}" alt="${product.altText}">`;
-        itemImgContainer.insertAdjacentHTML('beforeend', itemImage);
+    const itemImage = `<img src="${data.imageUrl}" alt="${data.altText}">`;
+    itemImgContainer.insertAdjacentHTML('beforeend', itemImage);
 
-        const title = `${product.name}`;
-        titleContainer.insertAdjacentHTML('beforeend', title);
+    const title = `${data.name}`;
+    titleContainer.insertAdjacentHTML('beforeend', title);
 
-        const price = `${product.price}`;
-        priceContainer.insertAdjacentHTML('beforeend', price);
+    const price = `${data.price}`;
+    priceContainer.insertAdjacentHTML('beforeend', price);
 
-        const description = `${product.description}`;
-        descriptionContainer.insertAdjacentHTML('beforeend', description);
+    const description = `${data.description}`;
+    descriptionContainer.insertAdjacentHTML('beforeend', description);
 
-        let optionColor;
-        product.colors.forEach(color => {
-          optionColor = `<option value="${color}">${color}</option>`;
-          colors.insertAdjacentHTML('beforeend', optionColor);
-        });
-      }
+    let optionColor;
+    data.colors.forEach(color => {
+      optionColor = `<option value="${color}">${color}</option>`;
+      colors.insertAdjacentHTML('beforeend', optionColor);
     });
   } catch (error) {
     console.log(error);

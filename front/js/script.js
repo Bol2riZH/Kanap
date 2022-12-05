@@ -19,7 +19,7 @@ getProductsData();
 // INSERT THE PRODUCTS TO HTML
 function showProducts(data) {
   const html = `
-    <a href="./product.html?id=${data._id}">
+    <a href="./html/product.html?id=${data._id}">
     <article>
         <img src="${data.imageUrl}" alt="${data.altTxt}">
         <h3 class="productName">${data.name}</h3>
