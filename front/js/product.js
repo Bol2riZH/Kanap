@@ -13,6 +13,7 @@ const btnShoppingCart = document.querySelector('#addToCart');
 // const url = new URLSearchParams(window.location);
 // const idProduct = url.get('search').slice(4);
 const idProduct = new URL(window.location).searchParams.get("id");
+console.log(idProduct)
 
 // SHOW THE PRODUCT BY ID
 async function showProduct(id) {
