@@ -1,15 +1,19 @@
-# Kanap #
+# Kanap
 
-This is the front end and back end server for Project 5 of the Web Developer path.
+## OpenClassrooms Project 5 - Kanap e-commerce (JS)
 
-### Back end Prerequisites ###
+Here we come to the main/real/best part of developpement : **programming**
 
-You will need to have Node and `npm` installed locally on your machine.
+### With JavaScript you make your website come to life, you make it dynamic and users will be able to interact with it.
 
-### Back end Installation ###
+Before I going to this project, I learn JS by myself for about 160h. My mindset was to get all the basic as clear as possible.
 
-Clone this repo. From the "back" folder of the project, run `npm install`. You 
-can then run the server with `node server`. 
-The server should run on `localhost` with default port `3000`. If the
-server runs on another port for any reason, this is printed to the
-console when the server starts, e.g. `Listening on port 3001`.
+
+I think the mission was complete as I finish the project in 1 week or so.
+
+I did a [plan test](https://github.com/Bol2riZH/Kanap/files/10155915/Reungoat_Matthieu_2_plan_test_082022.pdf) to check if of the functions was working as expected. 
+
+
+As always, you can check it out [here](https://kanap-five.vercel.app/)
+
+![Kanap](https://user-images.githubusercontent.com/101552588/205684844-e0c71081-3a46-422b-88e6-92fde1cb0ceb.png)
