@@ -10,8 +10,9 @@ const quantity = document.querySelector('#quantity');
 const btnShoppingCart = document.querySelector('#addToCart');
 
 // GET THE ID OF PRODUCT
-const url = new URLSearchParams(window.location);
-const idProduct = url.get('search').slice(4);
+// const url = new URLSearchParams(window.location);
+// const idProduct = url.get('search').slice(4);
+const idProduct = new URL(window.location).searchParams.get("id");
 
 // SHOW THE PRODUCT BY ID
 async function showProduct(id) {
