@@ -16,35 +16,31 @@ const idProduct = url.get('search').slice(4);
 // SHOW THE PRODUCT BY ID
 async function showProduct(id) {
   try {
-    const result = await fetch(`http://localhost:3000/api/products`);
+    const result = await fetch(`http://localhost:3000/api/products/${id}`);
     if (!result.ok) throw new Error('Problem with API');
-
     const data = await result.json();
-    data.forEach(product => {
-      if (product._id === id) {
-        const itemImage = `<img src="${product.imageUrl}" alt="${product.altText}">`;
-        itemImgContainer.insertAdjacentHTML('beforeend', itemImage);
+    const itemImage = `<img src="${data.imageUrl}" alt="${data.altText}">`;
+    itemImgContainer.insertAdjacentHTML('beforeend', itemImage);
 
-        const title = `${product.name}`;
-        titleContainer.insertAdjacentHTML('beforeend', title);
+    const title = `${data.name}`;
+    titleContainer.insertAdjacentHTML('beforeend', title);
 
-        const price = `${product.price}`;
-        priceContainer.insertAdjacentHTML('beforeend', price);
+    const price = `${data.price}`;
+    priceContainer.insertAdjacentHTML('beforeend', price);
 
-        const description = `${product.description}`;
-        descriptionContainer.insertAdjacentHTML('beforeend', description);
+    const description = `${data.description}`;
+    descriptionContainer.insertAdjacentHTML('beforeend', description);
 
-        let optionColor;
-        product.colors.forEach(color => {
-          optionColor = `<option value="${color}">${color}</option>`;
-          colors.insertAdjacentHTML('beforeend', optionColor);
-        });
-      }
+    let optionColor;
+    data.colors.forEach(color => {
+      optionColor = `<option value="${color}">${color}</option>`;
+      colors.insertAdjacentHTML('beforeend', optionColor);
     });
   } catch (error) {
     console.log(error);
   }
 }
+
 showProduct(idProduct);
 
 // ADD TO CART
@@ -91,6 +87,8 @@ btnShoppingCart.addEventListener('click', function (e) {
     localStorage.setItem('shoppingCart', JSON.stringify(carts));
     alert('Article ajouté au panier');
   } else {
-    alert('Veuillez sélectionner un nombre et une couleur pour ajouter un produit au panier');
+    alert(
+      'Veuillez sélectionner un nombre et une couleur pour ajouter un produit au panier'
+    );
   }
 });
