@@ -11,7 +11,7 @@ Before I going to this project, I learn JS by myself for about 160h. My mindset 
 
 I think the mission was complete as I finish the project in 1 week or so.
 
-I did a [plan test](https://github.com/Bol2riZH/Kanap/files/10155915/Reungoat_Matthieu_2_plan_test_082022.pdf) to check if of the functions was working as expected. 
+I did a [test plan](https://github.com/Bol2riZH/Kanap/files/10155915/Reungoat_Matthieu_2_plan_test_082022.pdf) to check if all the functions was working as expected. 
 
 
 As always, you can check it out [here](https://kanap-five.vercel.app/)
